@@ -50,7 +50,7 @@ Repository = "https://github.com/tarcon/ComfyUI-Sharpfin"
 includes = []
 
 [tool.setuptools.packages.find]
-where = ["src", "lib"]
+where = ["src"]
 include = ["*"]
 
 [tool.pytest.ini_options]
@@ -74,7 +74,7 @@ allow_untyped_defs = true
 disable_error_code = "attr-defined"
 
 [tool.ruff]
-extend-exclude = ["lib"]
+extend-exclude = ["src/lib"]
 line-length = 140
 src = ["src", "tests"]
 target-version = "py39"

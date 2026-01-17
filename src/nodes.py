@@ -1,7 +1,7 @@
 import torch
 
-from sharpfin.functional import scale
-from sharpfin.util import ResizeKernel
+from .lib.sharpfin.functional import scale
+from .lib.sharpfin.util import ResizeKernel
 
 
 class MagicKernelResampler:
