@@ -3,7 +3,7 @@ requires = ["setuptools>=70.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "sharpfin"
+name = "comfyui-sharpfin"
 version = "0.0.1"
 description = "ComfyUI node to use advanced Torchvision transforms built for accuracy, visual quality, and speed."
 authors = [
@@ -13,7 +13,15 @@ readme = "README.md"
 license = { text = "Apache Software License 2.0" }
 requires-python = ">=3.12"
 classifiers = []
-dependencies = []
+dependencies = [
+    "torch",
+    "torchvision",
+    "numpy",
+    "Pillow",
+    "msgspec",
+    "tqdm",
+    "triton; platform_system == 'Linux' and (platform_machine == 'x86_64' or platform_machine == 'aarch64')"
+]
 
 
 [project.optional-dependencies]
@@ -41,8 +49,9 @@ Repository = "https://github.com/tarcon/ComfyUI-Sharpfin"
 
 includes = []
 
-[tool.setuptools.package-data]
-"*" = ["*.*"]
+[tool.setuptools.packages.find]
+where = ["src", "lib"]
+include = ["*"]
 
 [tool.pytest.ini_options]
 minversion = "8.0"

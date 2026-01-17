@@ -15,7 +15,7 @@ ComfyUI node to use advanced Torchvision transforms built for accuracy, visual q
 
 ## Dependencies
 
-This node uses the [Sharpfin](https://github.com/drhead/Sharpfin) library by drhead, licensed under Apache 2.0, via git submodule.
+This node uses code from the [Sharpfin library](https://github.com/drhead/Sharpfin) licensed under Apache 2.0
 
 ## Develop
 
@@ -23,7 +23,7 @@ To install the dev dependencies and pre-commit (will run the ruff hook), do:
 
 ```bash
 cd sharpfin
-pip install -e .[dev] - alternatively for zsh users: noglob pip install -e .[dev]
+pip install .
 pre-commit install
 ```
 
@@ -54,15 +54,6 @@ This repo contains unit tests written in Pytest in the `tests/` directory. It is
 - [validate.yml](.github/workflows/validate.yml) will run [node-diff](https://github.com/Comfy-Org/node-diff) to check for breaking changes
 
 ## Publishing to Registry
-
-If you wish to share this custom node with others in the community, you can publish it to the registry. We've already auto-populated some fields in `pyproject.toml` under `tool.comfy`, but please double-check that they are correct.
-
-You need to make an account on https://registry.comfy.org and create an API key token.
-
-- [ ] Go to the [registry](https://registry.comfy.org). Login and create a publisher id (everything after the `@` sign on your registry profile).
-- [ ] Add the publisher id into the pyproject.toml file.
-- [ ] Create an api key on the Registry for publishing from GitHub. [Instructions](https://docs.comfy.org/registry/publishing#create-an-api-key-for-publishing).
-- [ ] Add it to your GitHub Repository Secrets as `REGISTRY_ACCESS_TOKEN`.
 
 A GitHub action will run on every git push. You can also run the GitHub action manually. Full instructions [here](https://docs.comfy.org/registry/publishing). Join our [discord](https://discord.com/invite/comfyorg) if you have any questions!
 
