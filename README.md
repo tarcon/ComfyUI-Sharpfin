@@ -2,9 +2,6 @@
 
 ComfyUI node to use advanced Torchvision transforms built for accuracy, visual quality, and speed.
 
-> [!NOTE]
-> This projected was created with a [cookiecutter](https://github.com/Comfy-Org/cookiecutter-comfy-extension) template. It helps you start writing custom nodes without worrying about the Python setup.
-
 ## Quickstart
 
 1. Install [ComfyUI](https://docs.comfy.org/get_started).
@@ -14,7 +11,7 @@ ComfyUI node to use advanced Torchvision transforms built for accuracy, visual q
 
 # Features
 
-- A list of features
+- Confer to the documentation of the underlying library [Sharpfin](https://github.com/drhead/Sharpfin)
 
 ## Develop
 
