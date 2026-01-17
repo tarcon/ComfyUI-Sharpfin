@@ -13,6 +13,10 @@ ComfyUI node to use advanced Torchvision transforms built for accuracy, visual q
 
 - Confer to the documentation of the underlying library [Sharpfin](https://github.com/drhead/Sharpfin)
 
+## Dependencies
+
+This node uses the [Sharpfin](https://github.com/drhead/Sharpfin) library by drhead, licensed under Apache 2.0, via git submodule.
+
 ## Develop
 
 To install the dev dependencies and pre-commit (will run the ruff hook), do:
