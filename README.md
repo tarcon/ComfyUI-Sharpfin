@@ -23,7 +23,7 @@ To install the dev dependencies and pre-commit (will run the ruff hook), do:
 
 ```bash
 cd sharpfin
-pip install -e .[dev]
+pip install -e .[dev] - alternatively for zsh users: noglob pip install -e .[dev]
 pre-commit install
 ```
 

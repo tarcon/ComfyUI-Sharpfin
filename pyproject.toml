@@ -39,7 +39,7 @@ Documentation = "https://github.com/tarcon/ComfyUI-Sharpfin/wiki"
 PublisherId = "tarcon"
 DisplayName = "ComfyUI Sharpfin"
 Icon = ""
-Tags = []
+Tags = ["comfyui"]
 Repository = "https://github.com/tarcon/ComfyUI-Sharpfin"
 
 includes = []
