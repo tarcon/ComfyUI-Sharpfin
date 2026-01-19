@@ -77,7 +77,6 @@ class Scale(Transform):
         resize_kernel: ResizeKernel = ResizeKernel.MAGIC_KERNEL_SHARP_2021,
         sharpen_kernel: SharpenKernel | None = None,
         do_srgb_conversion: bool = True,
-        use_sparse: bool = False,
     ):
         super().__init__()
         if isinstance(device, str):
@@ -92,11 +91,6 @@ class Scale(Transform):
             print("Warning: bfloat16 can be expected to lead to noticeable accuracy issues. float16 or float32 is recommended.")
         if out_dtype is not None and not out_dtype.is_floating_point and out_dtype not in [torch.uint8, torch.uint16, torch.uint32, torch.uint64]:
             raise ValueError("out_dtype must be a torch float format or a torch unsigned int format")
-        if use_sparse:
-            assert device.type != 'cpu'
-            if resize_kernel != ResizeKernel.MAGIC_KERNEL_SHARP_2021:
-                raise NotImplementedError
-        self.use_sparse = use_sparse
 
         if isinstance(out_res, int):
             out_res = (out_res, out_res)
@@ -166,14 +160,6 @@ class Scale(Transform):
         return image
 
     @torch.compile(disable=False)
-    def downscale_sparse(self, image: torch.Tensor, out_res: tuple[int, int]):
-        # Sparse implementation requires Triton which is not available on all platforms (e.g., macOS)
-        # Falling back to dense implementation
-        import warnings
-        warnings.warn("downscale_sparse called but sparse implementation is disabled (requires Triton). Using dense implementation instead.")
-        return self.downscale(image, out_res)
-
-    @torch.compile(disable=False)
     def upscale(self, image: torch.Tensor, out_res: tuple[int, int]):
         H, W = out_res
         image = image.to(dtype=self.dtype)
@@ -200,8 +186,6 @@ class Scale(Transform):
             if image.shape[-1] <= self.out_res[-1] and image.shape[-2] <= self.out_res[-2]:
                 return self.upscale(image, self.out_res)
             elif image.shape[-1] >= self.out_res[-1] and image.shape[-2] >= self.out_res[-2]:
-                if self.use_sparse:
-                    return self.downscale_sparse(image, self.out_res)
                 return self.downscale(image, self.out_res)
             else:
                 raise ValueError("Mixed axis resizing (e.g. scaling one axis up and the other down) is not supported. File a bug report with your use case if needed.")

@@ -3,7 +3,7 @@
 **This uses code from the Sharpfin library.**
 
 ### Original Author & License
-- **Original Library**: [Sharpfin](https://github.com/drhead/Sharpfin) by [@Sharpfin](https://github.com/drhead)
+- **Original Library**: [Sharpfin](https://github.com/drhead/Sharpfin) by [@drhead](https://github.com/drhead)
 - **License**: Apache License 2.0 (see LICENSE file)
 
 ### Modifications Made (January 2025)

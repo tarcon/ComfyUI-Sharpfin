@@ -247,16 +247,9 @@ def scale(
         device: torch.device = torch.device('cpu'),
         dtype: torch.dtype = torch.float32,
         do_srgb_conversion: bool = True,
-        use_sparse: bool = False,
     ) -> torch.Tensor:
     if isinstance(device, str):
         device = torch.device(device)
-    if use_sparse:
-        # Sparse implementation requires Triton which is not available on all platforms (e.g., macOS)
-        # Falling back to dense implementation
-        import warnings
-        warnings.warn("use_sparse=True requested but sparse implementation is disabled (requires Triton). Using dense implementation instead.")
-        use_sparse = False
 
     context_manager = (
         set_stance("force_eager") if set_stance and device.type == "cpu" else nullcontext()
