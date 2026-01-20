@@ -78,7 +78,3 @@ class MagicKernelResampler:
         # Convert back to BHWC
         scaled_image = scaled_image.permute(0, 2, 3, 1)
         return (scaled_image,)
-
-
-NODE_CLASS_MAPPINGS = {"MagicKernelResampler": MagicKernelResampler}
-NODE_DISPLAY_NAME_MAPPINGS = {"MagicKernelResampler": "Sharpfin Magic Kernel Resampler"}

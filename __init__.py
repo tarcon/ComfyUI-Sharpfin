@@ -1,9 +1,9 @@
-from .src.nodes import NODE_CLASS_MAPPINGS, NODE_DISPLAY_NAME_MAPPINGS
+from .src.nodes import MagicKernelResampler
 
-__all__ = [
-    "NODE_CLASS_MAPPINGS",
-    "NODE_DISPLAY_NAME_MAPPINGS",
-]
+NODE_CLASS_MAPPINGS = {"MagicKernelResampler": MagicKernelResampler}
+NODE_DISPLAY_NAME_MAPPINGS = {"MagicKernelResampler": "Sharpfin Magic Kernel Resampler"}
+
+__all__ = ["NODE_CLASS_MAPPINGS", "NODE_DISPLAY_NAME_MAPPINGS"]
 
 __author__ = """ComfyUI-Sharpfin"""
 __email__ = "git@grgr.dev"
