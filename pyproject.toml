@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "comfyui-sharpfin"
-version = "0.0.1"
+version = "1.0.0"
 description = "ComfyUI node to use advanced Torchvision transforms built for accuracy, visual quality, and speed."
 authors = [
     { name = "ComfyUI-Sharpfin", email = "git@grgr.dev" }
