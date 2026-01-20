@@ -27,7 +27,7 @@ class MagicKernelResampler:
                         "Magic Kernel",
                         "Magic Kernel Sharp 2013",
                         "Magic Kernel Sharp 2021",
-                    ],
+                    ], {"default": "Magic Kernel Sharp 2021"}
                 ),
                 "srgb_conversion": (["enable", "disable"], {"default": "enable"}),
             }
