@@ -4,7 +4,7 @@ from .lib.sharpfin.functional import scale
 from .lib.sharpfin.util import ResizeKernel
 
 
-class MagicKernelResampler:
+class SharpfinResizer:
     def __init__(self):
         pass
 
@@ -35,7 +35,7 @@ class MagicKernelResampler:
 
     RETURN_TYPES = ("IMAGE",)
     FUNCTION = "resize_image"
-    CATEGORY = "Sharpfin/Image"
+    CATEGORY = "Image/Upscaling"
 
     def resize_image(self, image, width, height, kernel, srgb_conversion):
         # Convert to BCHW

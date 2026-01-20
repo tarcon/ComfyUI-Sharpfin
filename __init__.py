@@ -1,7 +1,7 @@
-from .src.nodes import MagicKernelResampler
+from .src.nodes import SharpfinResizer
 
-NODE_CLASS_MAPPINGS = {"MagicKernelResampler": MagicKernelResampler}
-NODE_DISPLAY_NAME_MAPPINGS = {"MagicKernelResampler": "Sharpfin Magic Kernel Resampler"}
+NODE_CLASS_MAPPINGS = {"SharpfinResizer": SharpfinResizer}
+NODE_DISPLAY_NAME_MAPPINGS = {"SharpfinResizer": "Sharpfin Magic Image Resize"}
 
 __all__ = ["NODE_CLASS_MAPPINGS", "NODE_DISPLAY_NAME_MAPPINGS"]
 

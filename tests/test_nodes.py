@@ -1,7 +1,7 @@
 import pytest
 import torch
 
-from src.nodes import MagicKernelResampler
+from src.nodes import SharpfinResizer
 
 
 def create_test_image():
@@ -10,29 +10,28 @@ def create_test_image():
 
 
 @pytest.fixture
-def resampler_node():
-    """Fixture to create a MagicKernelResampler instance."""
-    return MagicKernelResampler()
+def sut():
+    return SharpfinResizer()
 
 
-def test_initialization(resampler_node):
+def test_initialization(sut):
     """Test that the node initializes correctly."""
-    assert isinstance(resampler_node, MagicKernelResampler)
+    assert isinstance(sut, SharpfinResizer)
 
 
 def test_input_types():
     """Check INPUT_TYPES structure and required fields."""
-    input_types = MagicKernelResampler.INPUT_TYPES()
+    input_types = SharpfinResizer.INPUT_TYPES()
     assert "required" in input_types
     required_fields = ["image", "width", "height", "kernel", "srgb_conversion"]
     for field in required_fields:
         assert field in input_types["required"]
 
 
-def test_resize_with_default_params(resampler_node):
+def test_resize_with_default_params(sut):
     """Test resizing with default parameters."""
     img = create_test_image()
-    result = resampler_node.resize_image(img, 128, 128, "Magic Kernel", "enable")
+    result = sut.resize_image(img, 128, 128, "Magic Kernel", "enable")
 
     # Check output shape
     assert result[0].shape == (1, 128, 128, 3)
@@ -40,21 +39,21 @@ def test_resize_with_default_params(resampler_node):
     assert torch.all((result[0] >= 0) & (result[0] <= 1))
 
 
-def test_srgb_conversion(resampler_node):
+def test_srgb_conversion(sut):
     """Test that sRGB conversion affects the result."""
     # Use a gradient image with varying values to show sRGB conversion difference
     img = torch.zeros(1, 64, 64, 3)
     for i in range(64):
         img[0, i, :, :] = i / 63.0  # Gradient from 0 to 1
 
-    enabled_result = resampler_node.resize_image(img, 32, 32, "Bilinear", "enable")
-    disabled_result = resampler_node.resize_image(img, 32, 32, "Bilinear", "disable")
+    enabled_result = sut.resize_image(img, 32, 32, "Bilinear", "enable")
+    disabled_result = sut.resize_image(img, 32, 32, "Bilinear", "disable")
 
     # Check results differ when srgb conversion is enabled vs disabled
     assert not torch.allclose(enabled_result[0], disabled_result[0], atol=1e-5)
 
 
-def test_kernel_mapping(resampler_node):
+def test_kernel_mapping(sut):
     """Test that different kernel strings map to correct ResizeKernel enums."""
     kernels = [
         "Nearest",
@@ -73,27 +72,27 @@ def test_kernel_mapping(resampler_node):
         try:
             # Test each kernel runs without error
             img = create_test_image()
-            resampler_node.resize_image(img, 64, 64, kernel, "enable")
+            sut.resize_image(img, 64, 64, kernel, "enable")
             assert True
         except Exception as e:
             pytest.fail(f"Kernel '{kernel}' raised exception: {e}")
 
 
-def test_edge_cases(resampler_node):
+def test_edge_cases(sut):
     """Test edge cases for width and height."""
     img = create_test_image()
 
     # Test downscaling to small size
-    result_min = resampler_node.resize_image(img, 32, 32, "Bilinear", "enable")
+    result_min = sut.resize_image(img, 32, 32, "Bilinear", "enable")
     assert result_min[0].shape == (1, 32, 32, 3)
 
     # Test upscaling to larger size
-    result_high = resampler_node.resize_image(img, 512, 512, "Bilinear", "enable")
+    result_high = sut.resize_image(img, 512, 512, "Bilinear", "enable")
     assert result_high[0].shape == (1, 512, 512, 3)
 
 
-def test_batch_processing(resampler_node):
+def test_batch_processing(sut):
     """Test batch processing with multiple images."""
     img = torch.rand(2, 64, 64, 3)  # Batch size of 2
-    result = resampler_node.resize_image(img, 128, 128, "Magic Kernel", "enable")
+    result = sut.resize_image(img, 128, 128, "Magic Kernel", "enable")
     assert result[0].shape == (2, 128, 128, 3)
