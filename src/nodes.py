@@ -58,6 +58,15 @@ class SharpfinResizer:
         if resize_kernel is None:
             raise ValueError(f"Unknown kernel: {kernel}")
 
+        # Validate that Nearest interpolation does not attempt to upscale
+        if resize_kernel == ResizeKernel.NEAREST:
+            if width > image.shape[-1] or height > image.shape[-2]:
+                raise ValueError(
+                    "Nearest interpolation does not support upsampling. "
+                    "Please use a smoother interpolation (Bilinear, Mitchell, etc.) "
+                    "or ensure the target dimensions are not larger than the source image."
+                )
+
         # Handle srgb conversion
         do_srgb_conversion = srgb_conversion == "enable"
 

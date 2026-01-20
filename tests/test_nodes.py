@@ -96,3 +96,14 @@ def test_batch_processing(sut):
     img = torch.rand(2, 64, 64, 3)  # Batch size of 2
     result = sut.resize_image(img, 128, 128, "Magic Kernel", "enable")
     assert result[0].shape == (2, 128, 128, 3)
+
+
+def test_nearest_interpolation_upscaling_fails(sut):
+    """Test that Nearest interpolation raises an error when upsampling."""
+    img = create_test_image()  # 64x64 image
+    
+    # Attempting to upscale with Nearest should fail
+    with pytest.raises(ValueError) as exc_info:
+        sut.resize_image(img, 128, 128, "Nearest", "enable")
+    
+    assert "Nearest interpolation does not support upsampling" in str(exc_info.value)
