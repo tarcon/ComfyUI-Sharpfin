@@ -10,9 +10,15 @@ ComfyUI node to use advanced Torchvision transforms built for accuracy, visual q
    `ComfyUI/custom_nodes`.
 4. Restart ComfyUI.
 
-# Features
+## Features
 
-- Confer to the documentation of the underlying library [Sharpfin](https://github.com/drhead/Sharpfin)
+- Improved upscaling and resizing: Specially optimized for accuracy, visual quality, and speed
+- Ten different interpolation kernels: The superior Magic Kernel as well as basics like bilinear or multiple versions of
+  Lanczos
+- High flexibility: Dimensions from 64 to 8192 (in increments of 64)
+- Optional sRGB conversion: For precise colour calculation and correct colour space conversion
+
+**More Details**: Confer to the documentation of the underlying library [Sharpfin](https://github.com/drhead/Sharpfin)
 
 ## Dependencies
 
@@ -43,4 +49,3 @@ node.
 A GitHub action will run on every git push. You can also run the GitHub action manually. Full
 instructions [here](https://docs.comfy.org/registry/publishing). Join our [discord](https://discord.com/invite/comfyorg)
 if you have any questions!
-
