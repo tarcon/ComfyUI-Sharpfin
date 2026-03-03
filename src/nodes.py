@@ -34,7 +34,8 @@ class SharpfinResizer:
             }
         }
 
-    RETURN_TYPES = ("IMAGE",)
+    RETURN_TYPES = ("IMAGE", "INT", "INT")
+    RETURN_NAMES = ("resized_image", "out_width", "out_height")
     FUNCTION = "resize_image"
     CATEGORY = "Image/Upscaling"
 
@@ -85,6 +86,11 @@ class SharpfinResizer:
             do_srgb_conversion=do_srgb_conversion,
         )
 
+        # Store dimensions before converting back to BHWC (currently in BCHW format)
+        out_width = scaled_image.shape[-1]
+        out_height = scaled_image.shape[-2]
+
         # Convert back to BHWC
         scaled_image = scaled_image.permute(0, 2, 3, 1)
-        return (scaled_image,)
+
+        return scaled_image, out_width, out_height

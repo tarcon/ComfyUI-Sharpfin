@@ -107,3 +107,21 @@ def test_nearest_interpolation_upscaling_fails(sut):
         sut.resize_image(img, 128, 128, "Nearest", "enable")
 
     assert "Nearest interpolation does not support upsampling" in str(exc_info.value)
+
+
+def test_output_dimensions(sut):
+    """Test that out_width and out_height outputs match the actual image dimensions."""
+    img = create_test_image()  # 64x64 image
+    target_width = 200
+    target_height = 150
+
+    result = sut.resize_image(img, target_width, target_height, "Bilinear", "enable")
+
+    # Check return tuple has 3 elements
+    assert len(result) == 3
+
+    image_output, out_width, out_height = result
+
+    # Verify out_width and out_height match the target dimensions
+    assert out_width == target_width
+    assert out_height == target_height
