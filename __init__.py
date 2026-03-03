@@ -7,4 +7,4 @@ __all__ = ["NODE_CLASS_MAPPINGS", "NODE_DISPLAY_NAME_MAPPINGS"]
 
 __author__ = """ComfyUI-Sharpfin"""
 __email__ = "git@grgr.dev"
-__version__ = "1.0.0"
+__version__ = "2.0.0"
