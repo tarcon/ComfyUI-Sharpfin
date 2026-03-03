@@ -12,9 +12,30 @@ class SharpfinResizer:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "image": ("IMAGE", {}),
-                "width": ("INT", {"default": 512, "min": 1, "max": 8192, "step": 1}),
-                "height": ("INT", {"default": 512, "min": 1, "max": 8192, "step": 1}),
+                "image": (
+                    "IMAGE",
+                    {"tooltip": "Input image to resize"},
+                ),
+                "width": (
+                    "INT",
+                    {
+                        "default": 512,
+                        "min": 1,
+                        "max": 8192,
+                        "step": 1,
+                        "tooltip": "Target width in pixels (1-8192). Actual width may differ to preserve aspect ratio",
+                    },
+                ),
+                "height": (
+                    "INT",
+                    {
+                        "default": 512,
+                        "min": 1,
+                        "max": 8192,
+                        "step": 1,
+                        "tooltip": "Target height in pixels (1-8192). Actual height may differ to preserve aspect ratio",
+                    },
+                ),
                 "kernel": (
                     [
                         "Nearest",
@@ -28,14 +49,28 @@ class SharpfinResizer:
                         "Magic Kernel Sharp 2013",
                         "Magic Kernel Sharp 2021",
                     ],
-                    {"default": "Magic Kernel Sharp 2021"},
+                    {
+                        "default": "Magic Kernel Sharp 2021",
+                        "tooltip": 'Interpolation kernel. "Magic Kernel Sharp 2021" recommended for quality. "Nearest" only supports downsampling',
+                    },
                 ),
-                "srgb_conversion": (["enable", "disable"], {"default": "enable"}),
+                "srgb_conversion": (
+                    ["enable", "disable"],
+                    {
+                        "default": "enable",
+                        "tooltip": "Enable sRGB color space conversion for accurate color handling during resize",
+                    },
+                ),
             }
         }
 
     RETURN_TYPES = ("IMAGE", "INT", "INT")
     RETURN_NAMES = ("resized_image", "out_width", "out_height")
+    OUTPUT_TOOLTIPS = (
+        "Resized image preserving aspect ratio",
+        "Actual output width in pixels (aspect-ratio adjusted)",
+        "Actual output height in pixels (aspect-ratio adjusted)",
+    )
     FUNCTION = "resize_image"
     CATEGORY = "Image/Upscaling"
 
