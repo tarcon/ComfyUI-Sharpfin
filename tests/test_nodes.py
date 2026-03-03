@@ -128,7 +128,7 @@ def test_output_dimensions(sut):
     assert out_height == 150
     # Verify image dimensions match reported dimensions
     assert image_output.shape[1] == out_height  # height dimension
-    assert image_output.shape[2] == out_width   # width dimension
+    assert image_output.shape[2] == out_width  # width dimension
 
 
 def test_aspect_ratio_preservation_exact_match(sut):
