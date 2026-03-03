@@ -40,6 +40,21 @@ class SharpfinResizer:
     CATEGORY = "Image/Upscaling"
 
     def resize_image(self, image, width, height, kernel, srgb_conversion):
+        # Preserve aspect ratio - use target dimensions if ratios match, otherwise scale proportionally
+        src_w, src_h = image.shape[2], image.shape[1]
+        src_ratio = src_w / src_h
+        target_ratio = width / height
+
+        if target_ratio < src_ratio:
+            # Target is "taller" than source - width is limiting
+            width = width
+            height = round(width / src_ratio)
+        elif target_ratio > src_ratio:
+            # Target is "wider" than source - height is limiting
+            height = height
+            width = round(height * src_ratio)
+        # else: ratios equal, use target dimensions as-is
+
         # Convert to BCHW
         image = image.permute(0, 3, 1, 2)  # BHWC -> BCHW
 

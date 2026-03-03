@@ -111,7 +111,7 @@ def test_nearest_interpolation_upscaling_fails(sut):
 
 def test_output_dimensions(sut):
     """Test that out_width and out_height outputs match the actual image dimensions."""
-    img = create_test_image()  # 64x64 image
+    img = create_test_image()  # 64x64 image (aspect ratio = 1.0)
     target_width = 200
     target_height = 150
 
@@ -122,6 +122,39 @@ def test_output_dimensions(sut):
 
     image_output, out_width, out_height = result
 
-    # Verify out_width and out_height match the target dimensions
-    assert out_width == target_width
-    assert out_height == target_height
+    # With aspect ratio preservation: 64x64 has ratio 1.0, target 200x150 has ratio 1.33
+    # Target is "wider" so height is limiting → output is 150x150 (preserves 1:1 ratio)
+    assert out_width == 150
+    assert out_height == 150
+    # Verify image dimensions match reported dimensions
+    assert image_output.shape[1] == out_height  # height dimension
+    assert image_output.shape[2] == out_width   # width dimension
+
+
+def test_aspect_ratio_preservation_exact_match(sut):
+    """Test that 768x512 → 1536x1024 produces exact output (same aspect ratio)."""
+    # Source: 768×512 (aspect ratio = 1.5)
+    # Target: 1536×1024 (aspect ratio = 1.5)
+    # Since ratios match, output should be exactly 1536×1024
+    img = torch.ones(1, 512, 768, 3)  # [batch, height, width, channels]
+    result = sut.resize_image(img, 1536, 1024, "Bilinear", "enable")
+
+    # Verify exact output dimensions
+    assert result[0].shape == (1, 1024, 1536, 3), f"Expected (1, 1024, 1536, 3), got {result[0].shape}"
+    assert result[1] == 1536, f"Expected out_width=1536, got {result[1]}"
+    assert result[2] == 1024, f"Expected out_height=1024, got {result[2]}"
+
+
+def test_aspect_ratio_preservation_downscale_width_limiting(sut):
+    """Test that 768x512 → 256x256 produces 256x171 (width-limiting case)."""
+    # Source: 768×512 (aspect ratio = 1.5)
+    # Target: 256×256 (aspect ratio = 1.0)
+    # Target is "taller" (1.0 < 1.5) → width is limiting
+    # Output: width=256, height=round(256/1.5)=171
+    img = torch.ones(1, 512, 768, 3)  # [batch, height, width, channels]
+    result = sut.resize_image(img, 256, 256, "Bilinear", "enable")
+
+    # Verify output dimensions
+    assert result[0].shape == (1, 171, 256, 3), f"Expected (1, 171, 256, 3), got {result[0].shape}"
+    assert result[1] == 256, f"Expected out_width=256, got {result[1]}"
+    assert result[2] == 171, f"Expected out_height=171, got {result[2]}"
