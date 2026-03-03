@@ -13,8 +13,8 @@ class SharpfinResizer:
         return {
             "required": {
                 "image": ("IMAGE", {}),
-                "width": ("INT", {"default": 512, "min": 64, "max": 8192, "step": 64}),
-                "height": ("INT", {"default": 512, "min": 64, "max": 8192, "step": 64}),
+                "width": ("INT", {"default": 512, "min": 1, "max": 8192, "step": 1}),
+                "height": ("INT", {"default": 512, "min": 1, "max": 8192, "step": 1}),
                 "kernel": (
                     [
                         "Nearest",
