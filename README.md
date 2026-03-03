@@ -1,6 +1,10 @@
 # ComfyUI Sharpfin
 
-ComfyUI node to use advanced Torchvision transforms built for accuracy, visual quality, and speed.
+ComfyUI node to change image dimensions with Torchvision transforms built for accuracy, visual quality, and speed.
+
+It can resize an image with rare resampling algorithms that achieve higher quality than the standards.
+
+This node uses code from the [Sharpfin library](https://github.com/drhead/Sharpfin) licensed under Apache 2.0.
 
 ## Quickstart
 
@@ -12,17 +16,30 @@ ComfyUI node to use advanced Torchvision transforms built for accuracy, visual q
 
 ## Features
 
-- Improved upscaling and resizing: Specially optimized for accuracy, visual quality, and speed
-- Ten different interpolation kernels: The superior Magic Kernel as well as basics like bilinear or multiple versions of
-  Lanczos
-- High flexibility: Dimensions from 64 to 8192 (in increments of 64)
+- High-quality image resampling with performant Pytorch libs
 - Optional sRGB conversion: For precise colour calculation and correct colour space conversion
+- Ten different interpolation kernels:
+    - Nearest
+    - Bilinear
+    - Mitchell
+    - Catmull-Rom
+    - B-Spline
+    - Lanczos2
+    - Lanczos3
+    - Magic Kernel
+    - Magic Kernel Sharp 2013
+    - Magic Kernel Sharp 2021
 
 **More Details**: Confer to the documentation of the underlying library [Sharpfin](https://github.com/drhead/Sharpfin)
 
-## Dependencies
+## Changelog
 
-This node uses code from the [Sharpfin library](https://github.com/drhead/Sharpfin) licensed under Apache 2.0
+### Version 2.0.0
+
+- Keeps aspect ratios as calculated from largest dimension (Change from 1.0.0 behaviour)
+- Allows unstepped target dimensions input
+- Outputs resulting width and height for further processing in ComfyUI
+- Node info documentation
 
 ## Develop
 
@@ -33,9 +50,6 @@ cd sharpfin
 pip install .
 pre-commit install
 ```
-
-The `-e` flag above will result in a "live" install, in the sense that any changes you make to your node extension will
-automatically be picked up the next time you run ComfyUI.
 
 ## Tests
 
