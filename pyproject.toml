@@ -11,7 +11,7 @@ authors = [
 ]
 readme = "README.md"
 license = { text = "Apache Software License 2.0" }
-requires-python = ">=3.12"
+requires-python = ">=3.11"
 classifiers = []
 dependencies = [
     "torch>=2.4.0",
@@ -76,7 +76,7 @@ disable_error_code = "attr-defined"
 extend-exclude = ["src/lib"]
 line-length = 140
 src = ["src", "tests"]
-target-version = "py312"
+target-version = "py311"
 
 # Add rules to ban exec/eval
 [tool.ruff.lint]
