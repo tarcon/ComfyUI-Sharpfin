@@ -34,6 +34,10 @@ This node uses code from the [Sharpfin library](https://github.com/drhead/Sharpf
 
 ## Changelog
 
+### Version 2.0.1
+
+- Support Python 3.11
+
 ### Version 2.0.0
 
 - Keeps aspect ratios as calculated from largest dimension (Change from 1.0.0 behaviour)
