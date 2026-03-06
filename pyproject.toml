@@ -14,13 +14,12 @@ license = { text = "Apache Software License 2.0" }
 requires-python = ">=3.12"
 classifiers = []
 dependencies = [
-    "torch",
-    "torchvision",
-    "numpy",
-    "Pillow",
-    "msgspec",
-    "tqdm",
-    "triton; platform_system == 'Linux' and (platform_machine == 'x86_64' or platform_machine == 'aarch64')"
+    "torch>=2.4.0",
+    "torchvision>=0.19.0",
+    "numpy>=1.26.0",
+    "Pillow>=10.0.0",
+    "msgspec>=0.18.0",
+    "tqdm>=4.66.0",
 ]
 
 
@@ -77,7 +76,7 @@ disable_error_code = "attr-defined"
 extend-exclude = ["src/lib"]
 line-length = 140
 src = ["src", "tests"]
-target-version = "py39"
+target-version = "py312"
 
 # Add rules to ban exec/eval
 [tool.ruff.lint]

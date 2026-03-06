@@ -57,9 +57,3 @@ This repo contains unit tests written in Pytest in the `tests/` directory. It is
 node.
 
 - [build-pipeline.yml](.github/workflows/build-pipeline.yml) will run pytest and linter on any open PRs
-
-## Publishing to Registry
-
-A GitHub action will run on every git push. You can also run the GitHub action manually. Full
-instructions [here](https://docs.comfy.org/registry/publishing). Join our [discord](https://discord.com/invite/comfyorg)
-if you have any questions!
